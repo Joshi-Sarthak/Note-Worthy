@@ -1,5 +1,4 @@
 ### IntelliJ IDEA ###
-src/com/main/DAO/DataBaseConnector.java/
 
 out/
 !**/src/main/**/out/
@@ -29,3 +28,4 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+/src/com/main/DAO/DataBaseConnector.java
