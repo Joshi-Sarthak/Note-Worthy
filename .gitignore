@@ -1,6 +1,6 @@
 ### IntelliJ IDEA ###
 
-/com/main/DataBaseConnector
+DataBaseConnector.java
 
 out/
 !**/src/main/**/out/
