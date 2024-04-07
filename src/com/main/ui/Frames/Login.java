@@ -7,11 +7,11 @@ import java.awt.event.*;
 
 public class Login extends javax.swing.JFrame {
 
-    boolean isEmailValid;
-
+    boolean isUsernameValid;
 
     public Login() {
         setTitle("NoteWorthy");
+        isUsernameValid = false;
         initComponents();
         setSize(800, 600);
         setResizable(false);
@@ -31,24 +31,36 @@ public class Login extends javax.swing.JFrame {
             }
         });
     }
+
+    public boolean isAlphanumeric(String str)
+    {
+        char[] charArray = str.toCharArray();
+        for(char c:charArray)
+        {
+            if (!Character.isLetterOrDigit(c))
+                return false;
+        }
+        return true;
+    }
+    
     private void login() {
         try {
-            String email = EmailField.getText().trim();
+            String username = usernameField.getText().trim();
             String password = PasswordField.getText();
-            if(email.isEmpty() || password.isEmpty()) {
-                loginErrorLabel.setText("Enter email and password!");
+            if(username.isEmpty() || password.isEmpty()) {
+                loginErrorLabel.setText("Enter username and password!");
                 return;
             }
             Class.forName("com.mysql.cj.jdbc.Driver");
             UserDAO loginDataBaseHelper = new UserDAO();
-            Boolean isAuth = loginDataBaseHelper.auth(email, password);
+            Boolean isAuth = loginDataBaseHelper.auth(username, password);
             if (!isAuth) {
-                loginErrorLabel.setText("Invalid email and password!");
-                EmailField.setText("");
+                loginErrorLabel.setText("Invalid username and password!");
+                usernameField.setText("");
                 PasswordField.setText("");
-                EmailField.grabFocus();
+                usernameField.grabFocus();
             } else {
-                new NoteWorthyApp(new UserDAO().getCurrentUsername(email));
+                new NoteWorthyApp(username);
                 this.dispose();
             }
         } catch(Exception ex) {
@@ -57,7 +69,7 @@ public class Login extends javax.swing.JFrame {
     }
 
     private void ok(ActionEvent ignoredE) {
-        if(isEmailValid)
+        if(isUsernameValid)
             this.login();
     }
 
@@ -65,37 +77,39 @@ public class Login extends javax.swing.JFrame {
         signinLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
-    private void EmailFieldMouseMoved(MouseEvent ignoredE) {
-        EmailField.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    private void usernameFieldMouseMoved(MouseEvent ignoredE) {
+        usernameField.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
     private void PasswordFieldMouseMoved(MouseEvent ignoredE) {
         PasswordField.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
-    private void EmailFieldKeyPressed(KeyEvent e) {
+    private void usernameFieldKeyPressed(KeyEvent e) {
         if (e.getKeyCode()==KeyEvent.VK_ENTER) {
-            if(EmailField.getText().isEmpty()) {
-                emailErrorLabel.setText("Enter an Email");
-            } else if(EmailField.getText().contains("@")) {
-                isEmailValid = true;
+            if(usernameField.getText().isEmpty()) {
+                usernameErrorLabel.setText("Enter an username");
+                isUsernameValid = false;
+            } else if(isAlphanumeric(usernameField.getText().trim())) {
+                isUsernameValid = true;
                 PasswordField.grabFocus();
             } else {
-                emailErrorLabel.setText("Invalid email");
+                usernameErrorLabel.setText("Invalid username");
+                isUsernameValid = false;
             }
         } else {
             loginErrorLabel.setText("");
-            emailErrorLabel.setText("");
+            usernameErrorLabel.setText("");
         }
     }
 
     private void PasswordFieldKeyPressed(KeyEvent e) {
-        emailErrorLabel.setText("");
-        if (e.getKeyCode()==KeyEvent.VK_ENTER && isEmailValid){
+        usernameErrorLabel.setText("");
+        if (e.getKeyCode()==KeyEvent.VK_ENTER && isUsernameValid){
             this.login();
 
-        } else if(!isEmailValid) {
-            emailErrorLabel.setText("Enter valid email");
+        } else if(!isUsernameValid) {
+            usernameErrorLabel.setText("Enter valid username");
         }
     }
 
@@ -116,7 +130,7 @@ public class Login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        EmailField = new javax.swing.JTextField();
+        usernameField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         PasswordField = new javax.swing.JPasswordField();
         okButton = new javax.swing.JButton();
@@ -124,7 +138,7 @@ public class Login extends javax.swing.JFrame {
         signinLabel = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         loginErrorLabel = new javax.swing.JLabel();
-        emailErrorLabel = new javax.swing.JLabel();
+        usernameErrorLabel = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
 
@@ -138,9 +152,9 @@ public class Login extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 36)); // NOI18N
         jLabel7.setText("NoteWorthy");
 
-        EmailField.addActionListener(new java.awt.event.ActionListener() {
+        usernameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EmailFieldActionPerformed(evt);
+                usernameFieldActionPerformed(evt);
             }
         });
 
@@ -158,13 +172,13 @@ public class Login extends javax.swing.JFrame {
         signinLabel.setText("Sign up");
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 12)); // NOI18N
-        jLabel2.setText("Email");
+        jLabel2.setText("username");
 
         loginErrorLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 12)); // NOI18N
         loginErrorLabel.setForeground(new java.awt.Color(255, 0, 51));
 
-        emailErrorLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 12)); // NOI18N
-        emailErrorLabel.setForeground(new java.awt.Color(255, 0, 51));
+        usernameErrorLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 12)); // NOI18N
+        usernameErrorLabel.setForeground(new java.awt.Color(255, 0, 51));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -177,7 +191,7 @@ public class Login extends javax.swing.JFrame {
                                         .addGroup(jPanel4Layout.createSequentialGroup()
                                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(PasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(EmailField, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addComponent(jLabel3))
                                                 .addContainerGap(19, Short.MAX_VALUE))
                                         .addGroup(jPanel4Layout.createSequentialGroup()
@@ -189,7 +203,7 @@ public class Login extends javax.swing.JFrame {
                                                 .addGap(33, 33, 33))
                                         .addGroup(jPanel4Layout.createSequentialGroup()
                                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(emailErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(usernameErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addComponent(jLabel2))
                                                 .addGap(0, 0, Short.MAX_VALUE))))
         );
@@ -198,9 +212,9 @@ public class Login extends javax.swing.JFrame {
                         .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(EmailField, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(emailErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(usernameErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -215,17 +229,17 @@ public class Login extends javax.swing.JFrame {
                                 .addGap(66, 66, 66))
         );
 
-        EmailField.addMouseMotionListener(new MouseMotionAdapter() {
+        usernameField.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
-                EmailFieldMouseMoved(e);
+                usernameFieldMouseMoved(e);
             }
         });
-        EmailField.addKeyListener(new KeyAdapter() {
+        usernameField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                EmailFieldKeyPressed(e);
-                EmailFieldKeyPressed(e);
+                usernameFieldKeyPressed(e);
+                usernameFieldKeyPressed(e);
             }
         });
         PasswordField.addMouseMotionListener(new MouseMotionAdapter() {
@@ -343,33 +357,32 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void EmailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailFieldActionPerformed
+    private void usernameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameFieldActionPerformed
         // TODO add your handling code here:
-        EmailField.addMouseListener(new MouseAdapter() {
+        usernameField.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
             }
         });
-        EmailField.addMouseMotionListener(new MouseMotionAdapter() {
+        usernameField.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
-                EmailFieldMouseMoved(e);
+                usernameFieldMouseMoved(e);
             }
         });
-        EmailField.addKeyListener(new KeyAdapter() {
+        usernameField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                EmailFieldKeyPressed(e);
-                EmailFieldKeyPressed(e);
+                usernameFieldKeyPressed(e);
             }
         });
 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField EmailField;
+    private javax.swing.JTextField usernameField;
     private javax.swing.JPasswordField PasswordField;
-    private javax.swing.JLabel emailErrorLabel;
+    private javax.swing.JLabel usernameErrorLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

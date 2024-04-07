@@ -14,11 +14,11 @@ public class UserDAO {
     Connection con;
     DataBaseConnector dataBaseConnector = new DataBaseConnector();
 
-    public Boolean auth(String email, String password) {
+    public Boolean auth(String username, String password) {
         String expectedPassword = "";
         try{
             con = dataBaseConnector.connect();
-            rs = con.prepareStatement("SELECT * FROM user WHERE email = '" + email +"';").executeQuery();
+            rs = con.prepareStatement("SELECT * FROM user WHERE username = '" + username +"';").executeQuery();
             if(rs.next()){
                 expectedPassword = rs.getString("password");
             }
