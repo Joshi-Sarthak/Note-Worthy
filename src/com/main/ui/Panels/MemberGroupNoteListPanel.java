@@ -7,15 +7,11 @@ package com.main.ui.Panels;
 import com.main.DAO.GroupNotesDAO;
 import com.main.ui.Frames.ViewNote;
 import com.main.model.GroupNote;
-import com.main.util.HintTextField;
-import com.main.util.CreateGroupCardPanel;
+import com.main.util.SearchTextField;
 import com.main.util.CreateNoteCardPanel;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Locale;
 import javax.swing.*;
@@ -72,6 +68,13 @@ public class MemberGroupNoteListPanel extends JPanel {
                 JPanel cardPanel = new CreateNoteCardPanel(n.getTitle(), n.getCreated_by(), n.getCreation_datetime(), n.getLast_edit_datetime(), currentUsername, myListener);
                 mainPanel.add(cardPanel);
             });
+            if(groupNotesArrayList.size() != 4) {
+                scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+                for(int i = groupNotesArrayList.size(); i <= 4; i++) {
+                    JPanel voidPanel = new JPanel();
+                    mainPanel.add(voidPanel);
+                }
+            }
         } else {
             mainPanel.add(new JLabel("No notes posted"));
         }
@@ -81,16 +84,22 @@ public class MemberGroupNoteListPanel extends JPanel {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         // Generated using JFormDesigner Evaluation license - Harsh Itkar
         gridPanel = new JPanel();
-        searchTextField = new HintTextField("Search by title");
 
-        searchTextField = new HintTextField("Search by title");
-        searchTextField.addKeyListener(new KeyListener() {@Override public void keyTyped(KeyEvent e) {
-            searchFieldKeyReleased();
-    }@Override public void keyPressed(KeyEvent e) {
+        searchTextField = new SearchTextField();
+        searchTextField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
 
-    }@Override public void keyReleased(KeyEvent e) {
+            }
+            @Override
+            public void keyPressed(KeyEvent e) {
 
-    }});
+            }
+            @Override
+            public void keyReleased(KeyEvent e) {
+            searchFieldKeyReleased(e);
+            }
+        });
 
         //======== this ========
         setBackground(Color.black);
@@ -128,7 +137,7 @@ public class MemberGroupNoteListPanel extends JPanel {
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
 
-    private void searchFieldKeyReleased() {
+    private void searchFieldKeyReleased(KeyEvent e) {
         String searchFieldText = searchTextField.getText().trim().toLowerCase();
         gridPanel.removeAll();
         mainPanel = new JPanel(new GridLayout(0, 1));
@@ -139,7 +148,7 @@ public class MemberGroupNoteListPanel extends JPanel {
                 MouseListener myListener = new MouseListener() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-
+                        new ViewNote(n.getTitle(), n.getContent());
                     }
 
                     @Override
@@ -166,6 +175,13 @@ public class MemberGroupNoteListPanel extends JPanel {
                 mainPanel.add(cardPanel);
             }
         });
+        if(groupNotesArrayList.size() != 4) {
+            scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+            for(int i = groupNotesArrayList.size(); i <= 4; i++) {
+                JPanel voidPanel = new JPanel();
+                mainPanel.add(voidPanel);
+            }
+        }
         gridPanel.revalidate();
         gridPanel.repaint();
     }

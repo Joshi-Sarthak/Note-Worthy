@@ -7,8 +7,7 @@ package com.main.ui.Panels;
 import com.main.DAO.GroupNotesDAO;
 import com.main.ui.Frames.AddNote;
 import com.main.model.GroupNote;
-import com.main.util.HintTextField;
-import com.main.util.CreateGroupCardPanel;
+import com.main.util.SearchTextField;
 import com.main.util.CreateNoteCardPanel;
 
 import javax.swing.*;
@@ -77,6 +76,13 @@ public class AdminGroupNotesPanel extends JPanel {
                 JPanel cardPanel = new CreateNoteCardPanel(n.getTitle(), n.getCreated_by(), n.getCreation_datetime(), n.getLast_edit_datetime(), currentUsername, myListener).getThisPanel();
                 mainPanel.add(cardPanel);
             });
+            if(groupNotesArrayList.size() != 4) {
+                scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+                for(int i = groupNotesArrayList.size(); i <= 4; i++) {
+                    JPanel voidPanel = new JPanel();
+                    mainPanel.add(voidPanel);
+                }
+            }
         } else {
             mainPanel.add(new JLabel("No notes created"));
         }
@@ -84,10 +90,9 @@ public class AdminGroupNotesPanel extends JPanel {
 
     private void initComponents() {
         gridPanel = new JPanel();
-        searchTextField = new HintTextField("Search by title");
         AddNoteLabel = new JLabel();
 
-        searchTextField = new HintTextField("Search by title");
+        searchTextField = new SearchTextField();
         searchTextField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -193,6 +198,13 @@ public class AdminGroupNotesPanel extends JPanel {
                 };
                 JPanel cardPanel = new CreateNoteCardPanel(n.getTitle(), n.getCreated_by(), n.getCreation_datetime(), n.getLast_edit_datetime(), currentUsername, myListener);
                 mainPanel.add(cardPanel);
+                if(groupNotesArrayList.size() != 4) {
+                    scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+                    for(int i = groupNotesArrayList.size(); i <= 4; i++) {
+                        JPanel voidPanel = new JPanel();
+                        mainPanel.add(voidPanel);
+                    }
+                }
             }
         });
         gridPanel.revalidate();

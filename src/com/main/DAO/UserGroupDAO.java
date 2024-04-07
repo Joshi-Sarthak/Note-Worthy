@@ -1,6 +1,7 @@
 package com.main.DAO;
 
-import com.main.model.userGroup;
+import com.main.model.User;
+import com.main.model.UserGroup;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,9 +9,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 
 public class UserGroupDAO {
 
@@ -19,15 +25,14 @@ public class UserGroupDAO {
     Connection con;
     DataBaseConnector dataBaseConnector = new DataBaseConnector();
 
-    public ArrayList<userGroup> getGroupList(String currentUsername) {
-        ArrayList<userGroup> model = new ArrayList<>();
+    public ArrayList<UserGroup> getGroupList(String currentUsername) {
+        ArrayList<UserGroup> model = new ArrayList<>();
         try{
             con = dataBaseConnector.connect();
             String sql = "SELECT `group`.groupId, `group`.groupName, `user_group`.role, `user_group`.dateJoined " +
                     "FROM noteworthy.`group` " +
                     "INNER JOIN noteworthy.`user_group` ON `group`.groupId = `user_group`.groupId " +
-                    "WHERE user_group.username = ? " +
-                    "ORDER BY (SELECT MAX(last_edit_datetime) FROM noteworthy.groupnotes_group WHERE groupnotes_group.groupId = `group`.groupId) DESC;";
+                    "WHERE `user_group`.username = ? ;";
             pst = con.prepareStatement(sql);
             pst.setString(1, currentUsername);
             rs = pst.executeQuery();
@@ -35,9 +40,21 @@ public class UserGroupDAO {
                 String groupId = rs.getString("groupId");
                 String groupName = rs.getString("groupName");
                 String dateJoined = rs.getString("dateJoined");
-                userGroup newGroup = new userGroup(groupId, groupName, dateJoined);
+                UserGroup newGroup = new UserGroup(groupId, groupName, dateJoined);
                 model.add(newGroup);
             }
+            Collections.sort(model, (obj1, obj2) -> {
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                int result = 0;
+                try {
+                    Date date1 = format.parse(obj1.getLastPostDate());
+                    Date date2 = format.parse(obj2.getLastPostDate());
+                    result =  date2.compareTo(date1);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                return result;
+            });
         } catch(HeadlessException | SQLException ex){
             System.out.println(ex);
         }finally {

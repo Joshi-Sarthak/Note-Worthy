@@ -7,7 +7,7 @@ package com.main.ui.Panels;
 import com.main.ui.Frames.AddNote;
 import com.main.DAO.Notedao;
 import com.main.model.PersonalNote;
-import com.main.util.HintTextField;
+import com.main.util.SearchTextField;
 import com.main.util.CreateNoteCardPanel;
 
 import java.awt.*;
@@ -71,6 +71,13 @@ public class PersonalNotesHomepagePanel extends JPanel {
                 JPanel cardPanel = new CreateNoteCardPanel(n.getTitle(),null, n.getCreationDateTime(), n.getLastEditDateTime(), currentUsername, myListener).getThisPanel();
                 mainPanel.add(cardPanel);
             });
+            if(personalNotesList.size() != 4) {
+                scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+                for(int i = personalNotesList.size(); i <= 4; i++) {
+                    JPanel voidPanel = new JPanel();
+                    mainPanel.add(voidPanel);
+                }
+            }
         } else {
             mainPanel.add(new JLabel("No notes created"));
         }
@@ -84,10 +91,9 @@ public class PersonalNotesHomepagePanel extends JPanel {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         // Generated using JFormDesigner Evaluation license - Harsh Itkar
         gridPanel = new JPanel();
-        searchTextField = new JTextField();
         AddNoteLabel = new JLabel();
 
-        searchTextField = new HintTextField("Search by title");
+        searchTextField = new SearchTextField();
         searchTextField.addKeyListener(new KeyListener() {@Override public void keyTyped(KeyEvent e) {
 
     }@Override public void keyPressed(KeyEvent e) {
@@ -154,7 +160,7 @@ public class PersonalNotesHomepagePanel extends JPanel {
     private void searchFieldKeyReleased(KeyEvent e) {
         String searchFieldText = searchTextField.getText().trim().toLowerCase();
         gridPanel.removeAll();
-        mainPanel = new JPanel(new GridLayout(0, 1, 10, 10));
+        mainPanel = new JPanel(new GridLayout(0, 1));
         scrollPane = new JScrollPane(mainPanel);
         gridPanel.add(scrollPane);
         personalNotesList.forEach(n -> {
@@ -189,6 +195,13 @@ public class PersonalNotesHomepagePanel extends JPanel {
                 mainPanel.add(cardPanel);
             }
         });
+        if(personalNotesList.size() != 4) {
+            scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+            for(int i = personalNotesList.size(); i <= 4; i++) {
+                JPanel voidPanel = new JPanel();
+                mainPanel.add(voidPanel);
+            }
+        }
         gridPanel.revalidate();
         gridPanel.repaint();
     }

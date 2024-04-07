@@ -4,6 +4,8 @@ import com.main.DAO.UserDAO;
 import com.main.model.User;
 
 import javax.swing.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -26,6 +28,17 @@ public class ProfilePanel extends javax.swing.JPanel {
         nameTextField.setText(currentUser.getName());
         emailTextField.setText(currentUser.getEmail());
         UsernameTextField.setText(currentUsername);
+    }
+
+    public boolean isAlphanumeric(String str)
+    {
+        char[] charArray = str.toCharArray();
+        for(char c:charArray)
+        {
+            if (!(Character.isLetterOrDigit(c) || Character.isSpaceChar(c)))
+                return false;
+        }
+        return true;
     }
 
     @SuppressWarnings("unchecked")
@@ -133,6 +146,26 @@ public class ProfilePanel extends javax.swing.JPanel {
             }
         });
 
+        KeyListener keyListener = new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                emailErrorLabel.setText("");
+                nameErrorlabel.setText("");
+            }
+        };
+
+        nameTextField.addKeyListener(keyListener);
+        emailTextField.addKeyListener(keyListener);
+
         nameErrorlabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 12)); // NOI18N
         nameErrorlabel.setForeground(new java.awt.Color(255, 0, 0));
 
@@ -220,7 +253,13 @@ public class ProfilePanel extends javax.swing.JPanel {
         }
         else if(emailTextField.getText().isEmpty()) {
             emailLabel.setText("Enter an email");
-        } else if(nameTextField.getText().trim().equals(currentUser.getName()) || emailTextField.getText().trim().equals(currentUser.getEmail())) {
+        } else if(!isAlphanumeric(nameTextField.getText().trim()) || !emailTextField.getText().contains("@")) {
+            if (!emailTextField.getText().contains("@")) {
+                emailErrorLabel.setText("Invalid Email");
+            } else {
+                nameErrorlabel.setText("Name must be alphanumeric");
+            }
+        }else if(nameTextField.getText().trim().equals(currentUser.getName()) && emailTextField.getText().trim().equals(currentUser.getEmail())) {
             JOptionPane.showMessageDialog(this, new JLabel("No changes to update"));
         }else {
             currentUser.setName(nameTextField.getText().trim());

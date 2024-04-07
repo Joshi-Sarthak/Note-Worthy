@@ -7,8 +7,8 @@ package com.main.ui.Panels;
 import com.main.DAO.UserGroupDAO;
 import com.main.ui.Frames.CreateGroupPage;
 import com.main.ui.Frames.JoinGroupPage;
-import com.main.model.userGroup;
-import com.main.util.HintTextField;
+import com.main.model.UserGroup;
+import com.main.util.SearchTextField;
 import com.main.util.CreateGroupCardPanel;
 
 import java.awt.*;
@@ -29,7 +29,7 @@ public class GroupHomepagePanel extends JPanel {private static JPanel mainPanel;
 
     JScrollPane scrollPane;
 
-    ArrayList<userGroup> groupArrayList;
+    ArrayList<UserGroup> groupArrayList;
     JPanel parentPanel;
     
     public GroupHomepagePanel(String _currentUsername, JPanel parentPanel) {
@@ -39,10 +39,12 @@ public class GroupHomepagePanel extends JPanel {private static JPanel mainPanel;
         initComponents();
         gridPanel.removeAll();
         mainPanel = new JPanel();
+        mainPanel.setBackground(Color.WHITE);
         scrollPane = new JScrollPane(mainPanel);
+        scrollPane.setBackground(Color.WHITE);
         gridPanel.add(scrollPane);
         if(!groupArrayList.isEmpty()) {
-            mainPanel.setLayout(new GridLayout(0, 1));
+            mainPanel.setLayout(new GridLayout(0, 1, 5, 1));
             groupArrayList.forEach(n -> {
                 MouseListener myListener = new MouseListener() {
                     @Override
@@ -83,6 +85,13 @@ public class GroupHomepagePanel extends JPanel {private static JPanel mainPanel;
                 JPanel cardPanel = new CreateGroupCardPanel(n.getGroupName(), n.getCreator(), n.getDateJoined(), n.getLastPostDate(), currentUsername, myListener, n.getGroupId()).getThisPanel();
                 mainPanel.add(cardPanel);
             });
+            if(groupArrayList.size() != 3) {
+                scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+                for(int i = groupArrayList.size(); i <= 3; i++) {
+                    JPanel voidPanel = new JPanel();
+                    mainPanel.add(voidPanel);
+                }
+            }
         } else {
             mainPanel.add(new JLabel("You are not in any group"));
         }
@@ -95,11 +104,10 @@ public class GroupHomepagePanel extends JPanel {private static JPanel mainPanel;
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         // Generated using JFormDesigner Evaluation license - Harsh Itkar
         gridPanel = new JPanel();
-        searchTextField = new JTextField();
         CreateGroupLabel = new JLabel();
         JoinGroupLabel = new JLabel();
 
-        searchTextField = new HintTextField("Search by group name or creator");
+        searchTextField = new SearchTextField();
         searchTextField.addKeyListener(new KeyListener() {@Override public void keyTyped(KeyEvent e) {
     }@Override public void keyPressed(KeyEvent e) {
 
@@ -196,10 +204,10 @@ public class GroupHomepagePanel extends JPanel {private static JPanel mainPanel;
     private void searchFieldKeyReleased(KeyEvent e) {
         String searchFieldText = searchTextField.getText().trim().toLowerCase();
         gridPanel.removeAll();
-        mainPanel.removeAll();
-        mainPanel.setLayout(new GridLayout(0, 1));
+        mainPanel = new JPanel();
         scrollPane = new JScrollPane(mainPanel);
         gridPanel.add(scrollPane);
+        mainPanel.setLayout(new GridLayout(0, 1));
         groupArrayList.forEach(n -> {
             if(n.getGroupName().toLowerCase(Locale.ROOT).contains(searchFieldText) || n.getCreator().toLowerCase(Locale.ROOT).contains(searchFieldText)) {
                 MouseListener myListener = new MouseListener() {
@@ -242,8 +250,8 @@ public class GroupHomepagePanel extends JPanel {private static JPanel mainPanel;
                 mainPanel.add(cardPanel);
             }
         });
-        if(groupArrayList.size() != 9) {
-            for(int i = groupArrayList.size(); i <= 9; i++) {
+        if(groupArrayList.size() != 3) {
+            for(int i = groupArrayList.size(); i <= 3; i++) {
                 JPanel voidPanel = new JPanel();
                 mainPanel.add(voidPanel);
             }

@@ -23,7 +23,7 @@ public class CreateGroupCardPanel extends javax.swing.JPanel {
             creationLabel.setText("Created by: " + creator);
             dateJoinedLabel.setText("Joined at: " + dateJoined);
         }
-        groupcodeLabel.setText(groupId);
+        groupcodeLabel.setText("Group Code : " + groupId);
         lastEditLabel.setText("Last Edit: " + lastPostDate);
         lastEditPanel.add(lastEditLabel, BorderLayout.LINE_END);
         titlePanel.add(titleLabel);
@@ -54,7 +54,6 @@ public class CreateGroupCardPanel extends javax.swing.JPanel {
 
         groupcodeLabel.setFont(new java.awt.Font("Yu Gothic Light", 0, 12)); // NOI18N
         groupcodeLabel.setForeground(new java.awt.Color(102, 102, 102));
-        groupcodeLabel.setText("Group Code :");
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));

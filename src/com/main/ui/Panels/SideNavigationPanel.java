@@ -35,6 +35,7 @@ public class SideNavigationPanel extends javax.swing.JPanel {
 
         LogoutLabel.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         LogoutLabel.setText("Logout");
+
         LogoutLabel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -129,11 +130,19 @@ public class SideNavigationPanel extends javax.swing.JPanel {
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+        Font font = PersonalNotesLabel.getFont();
+        Map attributes = font.getAttributes();
+        attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+        PersonalNotesLabel.setFont(font.deriveFont(attributes));
         profileLabel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 mainPanel.removeAll();
                 mainPanel.add(new ProfilePanel(currentUsername, mainPanel).getThisPanel());
+                Font font = profileLabel.getFont();
+                Map attributes = font.getAttributes();
+                attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+                profileLabel.setFont(font.deriveFont(attributes));
                 mainPanel.repaint();
                 mainPanel.revalidate();
             }
@@ -169,6 +178,10 @@ public class SideNavigationPanel extends javax.swing.JPanel {
             public void mouseClicked(MouseEvent e) {
                 mainPanel.removeAll();
                 mainPanel.add(new GroupHomepagePanel(currentUsername, mainPanel).getThisPanel());
+                Font font = groupLabel.getFont();
+                Map attributes = font.getAttributes();
+                attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+                groupLabel.setFont(font.deriveFont(attributes));
                 mainPanel.repaint();
                 mainPanel.revalidate();
             }
@@ -204,6 +217,10 @@ public class SideNavigationPanel extends javax.swing.JPanel {
             public void mouseClicked(MouseEvent e) {
                 mainPanel.removeAll();
                 mainPanel.add(new PersonalNotesHomepagePanel(currentUsername, mainPanel).getThisPanel());
+                Font font = PersonalNotesLabel.getFont();
+                Map attributes = font.getAttributes();
+                attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+                PersonalNotesLabel.setFont(font.deriveFont(attributes));
                 mainPanel.repaint();
                 mainPanel.revalidate();
             }

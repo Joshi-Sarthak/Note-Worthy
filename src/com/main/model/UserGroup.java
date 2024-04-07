@@ -2,8 +2,8 @@ package com.main.model;
 
 import com.main.DAO.UserGroupDAO;
 
-public class userGroup {
-    public userGroup(String groupId, String groupName, String dateJoined) {
+public class UserGroup {
+    public UserGroup(String groupId, String groupName, String dateJoined) {
         this.groupId = groupId;
         this.groupName = groupName;
         this.dateJoined = dateJoined;
