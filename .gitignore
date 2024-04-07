@@ -1,5 +1,5 @@
 ### IntelliJ IDEA ###
-src/main/DAO/DataBaseConnector/
+src/com/main/DAO/DataBaseConnector.java/
 
 out/
 !**/src/main/**/out/
