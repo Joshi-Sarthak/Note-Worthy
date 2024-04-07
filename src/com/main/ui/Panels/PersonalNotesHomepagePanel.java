@@ -8,8 +8,7 @@ import com.main.ui.Frames.AddNote;
 import com.main.DAO.Notedao;
 import com.main.model.PersonalNote;
 import com.main.util.HintTextField;
-import com.main.util.createGroupCardPanel;
-import com.main.util.createNoteCardPanel;
+import com.main.util.CreateNoteCardPanel;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -69,7 +68,7 @@ public class PersonalNotesHomepagePanel extends JPanel {
 
                     }
                 };
-                JPanel cardPanel = new createNoteCardPanel(n.getTitle(),null, n.getCreationDateTime(), n.getLastEditDateTime(), currentUsername, myListener).getThisPanel();
+                JPanel cardPanel = new CreateNoteCardPanel(n.getTitle(),null, n.getCreationDateTime(), n.getLastEditDateTime(), currentUsername, myListener).getThisPanel();
                 mainPanel.add(cardPanel);
             });
         } else {
@@ -186,7 +185,7 @@ public class PersonalNotesHomepagePanel extends JPanel {
 
                     }
                 };
-                JPanel cardPanel = new createNoteCardPanel(n.getTitle(),null, n.getCreationDateTime(), n.getLastEditDateTime(), currentUsername, myListener).getThisPanel();
+                JPanel cardPanel = new CreateNoteCardPanel(n.getTitle(),null, n.getCreationDateTime(), n.getLastEditDateTime(), currentUsername, myListener).getThisPanel();
                 mainPanel.add(cardPanel);
             }
         });

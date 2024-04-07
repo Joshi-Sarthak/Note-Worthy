@@ -8,7 +8,8 @@ import com.main.DAO.GroupNotesDAO;
 import com.main.ui.Frames.AddNote;
 import com.main.model.GroupNote;
 import com.main.util.HintTextField;
-import com.main.util.createGroupCardPanel;
+import com.main.util.CreateGroupCardPanel;
+import com.main.util.CreateNoteCardPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -73,7 +74,7 @@ public class AdminGroupNotesPanel extends JPanel {
 
                     }
                 };
-                JPanel cardPanel = new createGroupCardPanel(n.getTitle(), n.getCreated_by(), n.getCreation_datetime(), n.getLast_edit_datetime(), currentUsername, myListener);
+                JPanel cardPanel = new CreateNoteCardPanel(n.getTitle(), n.getCreated_by(), n.getCreation_datetime(), n.getLast_edit_datetime(), currentUsername, myListener).getThisPanel();
                 mainPanel.add(cardPanel);
             });
         } else {
@@ -190,7 +191,7 @@ public class AdminGroupNotesPanel extends JPanel {
 
                     }
                 };
-                JPanel cardPanel = new createGroupCardPanel(n.getTitle(), n.getCreated_by(), n.getCreation_datetime(), n.getLast_edit_datetime(), currentUsername, myListener);
+                JPanel cardPanel = new CreateNoteCardPanel(n.getTitle(), n.getCreated_by(), n.getCreation_datetime(), n.getLast_edit_datetime(), currentUsername, myListener);
                 mainPanel.add(cardPanel);
             }
         });

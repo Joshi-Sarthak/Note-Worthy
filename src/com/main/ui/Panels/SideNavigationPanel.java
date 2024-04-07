@@ -9,10 +9,10 @@ import java.awt.event.MouseListener;
 import java.awt.font.TextAttribute;
 import java.util.Map;
 
-public class sideNavigationPanel extends javax.swing.JPanel {
+public class SideNavigationPanel extends javax.swing.JPanel {
     JPanel mainPanel;
     String currentUsername;
-    public sideNavigationPanel(JPanel _mainPanel, String _currentUsername) {
+    public SideNavigationPanel(JPanel _mainPanel, String _currentUsername) {
         currentUsername = _currentUsername;
         mainPanel = _mainPanel;
         initComponents();

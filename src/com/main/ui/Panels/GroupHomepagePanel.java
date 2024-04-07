@@ -9,14 +9,13 @@ import com.main.ui.Frames.CreateGroupPage;
 import com.main.ui.Frames.JoinGroupPage;
 import com.main.model.userGroup;
 import com.main.util.HintTextField;
-import com.main.util.createGroupCardPanel;
+import com.main.util.CreateGroupCardPanel;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Locale;
 import javax.swing.*;
@@ -39,7 +38,7 @@ public class GroupHomepagePanel extends JPanel {private static JPanel mainPanel;
         groupArrayList = new UserGroupDAO().getGroupList(currentUsername);
         initComponents();
         gridPanel.removeAll();
-        mainPanel = new JPanel(new GridLayout(0, 1));
+        mainPanel = new JPanel();
         scrollPane = new JScrollPane(mainPanel);
         gridPanel.add(scrollPane);
         if(!groupArrayList.isEmpty()) {
@@ -81,7 +80,7 @@ public class GroupHomepagePanel extends JPanel {private static JPanel mainPanel;
 
                     }
                 };
-                JPanel cardPanel = new createGroupCardPanel(n.getGroupName(), n.getCreator(), n.getDateJoined(), n.getLastPostDate(), currentUsername, myListener).getThisPanel();
+                JPanel cardPanel = new CreateGroupCardPanel(n.getGroupName(), n.getCreator(), n.getDateJoined(), n.getLastPostDate(), currentUsername, myListener, n.getGroupId()).getThisPanel();
                 mainPanel.add(cardPanel);
             });
         } else {
@@ -197,7 +196,8 @@ public class GroupHomepagePanel extends JPanel {private static JPanel mainPanel;
     private void searchFieldKeyReleased(KeyEvent e) {
         String searchFieldText = searchTextField.getText().trim().toLowerCase();
         gridPanel.removeAll();
-        mainPanel = new JPanel(new GridLayout(0, 1));
+        mainPanel.removeAll();
+        mainPanel.setLayout(new GridLayout(0, 1));
         scrollPane = new JScrollPane(mainPanel);
         gridPanel.add(scrollPane);
         groupArrayList.forEach(n -> {
@@ -238,7 +238,7 @@ public class GroupHomepagePanel extends JPanel {private static JPanel mainPanel;
 
                     }
                 };
-                JPanel cardPanel = new createGroupCardPanel(n.getGroupName(), n.getCreator(), n.getDateJoined(), n.getLastPostDate(), currentUsername, myListener).getThisPanel();
+                JPanel cardPanel = new CreateGroupCardPanel(n.getGroupName(), n.getCreator(), n.getDateJoined(), n.getLastPostDate(), currentUsername, myListener, n.getGroupId()).getThisPanel();
                 mainPanel.add(cardPanel);
             }
         });

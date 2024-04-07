@@ -5,10 +5,10 @@ import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 
 
-public class createNoteCardPanel extends javax.swing.JPanel {
+public class CreateNoteCardPanel extends javax.swing.JPanel {
 
 
-    public createNoteCardPanel(String title, String creator, String creationDatetime, String lastPostDate, String currentUsername, MouseListener myListener)
+    public CreateNoteCardPanel(String title, String creator, String creationDatetime, String lastPostDate, String currentUsername, MouseListener myListener)
     {
         initComponents();
         titleLabel.setFocusable(false);
@@ -117,7 +117,7 @@ public class createNoteCardPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
+                                .addContainerGap(10, 10)
                                 .addComponent(infoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,7 +136,7 @@ public class createNoteCardPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addContainerGap(10, Short.MAX_VALUE)
+                                .addContainerGap(10, 10)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(titlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))

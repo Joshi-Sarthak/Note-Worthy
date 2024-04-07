@@ -5,7 +5,7 @@
 package com.main.ui.Frames;
 
 import com.main.ui.Panels.PersonalNotesHomepagePanel;
-import com.main.ui.Panels.sideNavigationPanel;
+import com.main.ui.Panels.SideNavigationPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +19,7 @@ public class NoteWorthyApp extends JFrame {
     public NoteWorthyApp(String _currentUsername) {
         currentUsername = _currentUsername;
         initComponents();
-        sideNavigationPanel.add(new sideNavigationPanel(mainPanel, currentUsername).getThisPanel());
+        sideNavigationPanel.add(new SideNavigationPanel(mainPanel, currentUsername).getThisPanel());
         mainPanel.add(new PersonalNotesHomepagePanel(currentUsername, mainPanel).getThisPanel(), BorderLayout.LINE_START);
         setSize(new Dimension(1010, 630));
         setTitle("NoteWorthy");
