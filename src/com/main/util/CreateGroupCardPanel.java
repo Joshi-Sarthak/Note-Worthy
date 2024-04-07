@@ -11,6 +11,9 @@ public class CreateGroupCardPanel extends javax.swing.JPanel {
     public CreateGroupCardPanel(String groupName, String creator, String dateJoined, String lastPostDate, String currentUsername, MouseListener myListener, String groupId)
     {
         initComponents();
+        groupcodeLabel.setEditable(false);
+        groupcodeLabel.setMaximumSize(new Dimension(50, groupcodeLabel.getHeight()));
+        groupcodeLabel.setBackground(Color.getColor("#1f1f1f"));
         titleLabel.setFocusable(false);
         titleLabel.setText(groupName);
         titleLabel.setEditable(false);
@@ -50,7 +53,7 @@ public class CreateGroupCardPanel extends javax.swing.JPanel {
         creationLabel = new javax.swing.JLabel();
         dateJoinedLabel = new javax.swing.JLabel();
         titleLabel = new javax.swing.JTextArea();
-        groupcodeLabel = new javax.swing.JLabel();
+        groupcodeLabel = new JTextArea();
 
         groupcodeLabel.setFont(new java.awt.Font("Yu Gothic Light", 0, 12)); // NOI18N
         groupcodeLabel.setForeground(new java.awt.Color(102, 102, 102));
@@ -169,6 +172,6 @@ public class CreateGroupCardPanel extends javax.swing.JPanel {
     private javax.swing.JPanel lastEditPanel;
     private javax.swing.JTextArea titleLabel;
     private javax.swing.JPanel titlePanel;
-    private javax.swing.JLabel groupcodeLabel;
+    private JTextArea groupcodeLabel;
     // End of variables declaration
 }

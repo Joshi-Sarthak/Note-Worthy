@@ -143,6 +143,10 @@ public class SideNavigationPanel extends javax.swing.JPanel {
                 Map attributes = font.getAttributes();
                 attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
                 profileLabel.setFont(font.deriveFont(attributes));
+                font = profileLabel.getFont();
+                attributes = font.getAttributes();
+                attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE);
+                profileLabel.setFont(font.deriveFont(attributes));
                 mainPanel.repaint();
                 mainPanel.revalidate();
             }
@@ -182,6 +186,10 @@ public class SideNavigationPanel extends javax.swing.JPanel {
                 Map attributes = font.getAttributes();
                 attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
                 groupLabel.setFont(font.deriveFont(attributes));
+                font = profileLabel.getFont();
+                attributes = font.getAttributes();
+                attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE);
+                profileLabel.setFont(font.deriveFont(attributes));
                 mainPanel.repaint();
                 mainPanel.revalidate();
             }

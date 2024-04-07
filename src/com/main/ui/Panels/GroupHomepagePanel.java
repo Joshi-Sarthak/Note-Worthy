@@ -252,6 +252,7 @@ public class GroupHomepagePanel extends JPanel {private static JPanel mainPanel;
         });
         if(groupArrayList.size() != 3) {
             for(int i = groupArrayList.size(); i <= 3; i++) {
+                scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
                 JPanel voidPanel = new JPanel();
                 mainPanel.add(voidPanel);
             }
