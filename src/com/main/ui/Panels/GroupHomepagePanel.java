@@ -45,7 +45,7 @@ public class GroupHomepagePanel extends JPanel {private static JPanel mainPanel;
         scrollPane.setBackground(Color.WHITE);
         gridPanel.add(scrollPane);
         if(!groupArrayList.isEmpty()) {
-            mainPanel.setLayout(new GridLayout(0, 1, 5, 1));
+            mainPanel.setLayout(new GridLayout(0, 1));
             groupArrayList.forEach(n -> {
                 MouseListener myListener = new MouseListener() {
                     @Override
@@ -86,9 +86,9 @@ public class GroupHomepagePanel extends JPanel {private static JPanel mainPanel;
                 JPanel cardPanel = new CreateGroupCardPanel(n.getGroupName(), n.getCreator(), n.getDateJoined(), n.getLastPostDate(), currentUsername, myListener, n.getGroupId()).getThisPanel();
                 mainPanel.add(cardPanel);
             });
-            if(groupArrayList.size() != 3) {
+            if(groupArrayList.size() != 4) {
                 scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-                for(int i = groupArrayList.size(); i <= 3; i++) {
+                for(int i = groupArrayList.size(); i <= 4; i++) {
                     JPanel voidPanel = new JPanel();
                     mainPanel.add(voidPanel);
                 }
@@ -251,8 +251,8 @@ public class GroupHomepagePanel extends JPanel {private static JPanel mainPanel;
                 mainPanel.add(cardPanel);
             }
         });
-        if(groupArrayList.size() != 3) {
-            for(int i = groupArrayList.size(); i <= 3; i++) {
+        if(groupArrayList.size() != 4) {
+            for(int i = groupArrayList.size(); i <= 4; i++) {
                 scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
                 JPanel voidPanel = new JPanel();
                 mainPanel.add(voidPanel);
