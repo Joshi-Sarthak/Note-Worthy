@@ -20,7 +20,7 @@ import java.util.Locale;
 import javax.swing.*;
 
 /**
- * @author haras
+ * @author Onkar Jadhav
  */
 public class PersonalNotesHomepagePanel extends JPanel {
     private static JPanel mainPanel;

@@ -1,5 +1,8 @@
 package com.main.model;
 
+/**
+ * @author Onkar Jadhav
+ */
 public class PersonalNote {
 
     public PersonalNote() {}

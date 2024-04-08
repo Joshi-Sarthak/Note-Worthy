@@ -21,7 +21,8 @@ import java.util.Locale;
 import javax.swing.*;
 
 /**
- * @author haras
+ *
+ * @author Sarthak Joshi
  */
 public class GroupHomepagePanel extends JPanel {private static JPanel mainPanel;
 

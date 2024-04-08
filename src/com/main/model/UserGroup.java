@@ -2,6 +2,10 @@ package com.main.model;
 
 import com.main.DAO.UserGroupDAO;
 
+/**
+ *
+ * @author Sarthak Joshi
+ */
 public class UserGroup {
     public UserGroup(String groupId, String groupName, String dateJoined) {
         this.groupId = groupId;

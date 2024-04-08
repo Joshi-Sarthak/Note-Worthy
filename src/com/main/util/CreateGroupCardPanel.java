@@ -5,6 +5,9 @@ import java.awt.*;
 import java.awt.event.MouseListener;
 
 
+/**
+ * @author Onkar Jadhav
+ */
 public class CreateGroupCardPanel extends javax.swing.JPanel {
 
 

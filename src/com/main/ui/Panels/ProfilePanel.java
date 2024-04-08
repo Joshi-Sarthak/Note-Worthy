@@ -11,7 +11,7 @@ import java.awt.event.MouseListener;
 
 /**
  *
- * @author Sarthak
+ * @author Sarthak Joshi
  */
 public class ProfilePanel extends javax.swing.JPanel {
 

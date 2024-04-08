@@ -5,8 +5,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 /**
- *
- * @author Sarthak
+ * @author Onkar Jadhav
  */
 public class ViewNote extends javax.swing.JFrame {
 

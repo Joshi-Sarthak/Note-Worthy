@@ -5,6 +5,10 @@ import com.main.DAO.UserDAO;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ *
+ * @author Sarthak Joshi
+ */
 public class Login extends javax.swing.JFrame {
 
     boolean isUsernameValid;

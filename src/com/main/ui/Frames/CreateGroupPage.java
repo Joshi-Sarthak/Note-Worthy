@@ -17,7 +17,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 /**
- * @author haras
+ * @author Harsh Itkar
  */
 public class CreateGroupPage extends JFrame {
 

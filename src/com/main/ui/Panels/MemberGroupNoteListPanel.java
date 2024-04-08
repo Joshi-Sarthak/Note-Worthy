@@ -17,7 +17,7 @@ import java.util.Locale;
 import javax.swing.*;
 
 /**
- * @author haras
+ * @author Harsh Itkar
  */
 public class MemberGroupNoteListPanel extends JPanel {
     private static JPanel mainPanel;

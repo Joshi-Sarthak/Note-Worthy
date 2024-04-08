@@ -5,6 +5,10 @@ import com.main.model.PersonalNote;
 import java.sql.*;
 import java.util.ArrayList;
 
+
+/**
+ * @author Onkar Jadhav
+ */
 public class Notedao {
     private Connection connection;
     public static ResultSet resultSet;

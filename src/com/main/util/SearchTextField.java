@@ -7,6 +7,9 @@ import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+/**
+ * @author Onkar Jadhav
+ */
 public class SearchTextField extends JTextField implements FocusListener {
 
     private final String hint = "Search";

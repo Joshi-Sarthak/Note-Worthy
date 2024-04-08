@@ -9,8 +9,7 @@ import javax.swing.*;
 import java.awt.event.*;
 
 /**
- *
- * @author Sarthak
+ * @author Onkar Jadhav
  */
 public class AddNote extends javax.swing.JFrame {
     String currentUsername;

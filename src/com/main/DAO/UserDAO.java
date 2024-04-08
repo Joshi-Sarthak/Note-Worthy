@@ -8,6 +8,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * @author Harsh Itkar
+ */
+
 public class UserDAO {
     PreparedStatement pst;
     ResultSet rs;

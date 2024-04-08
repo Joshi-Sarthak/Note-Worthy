@@ -15,7 +15,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
- * @author haras
+ * @author Harsh Itkar
  */
 public class JoinGroupPage extends JFrame {
     String currentUsername;

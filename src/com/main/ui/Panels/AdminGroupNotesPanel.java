@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 /**
- * @author haras
+ * @author Harsh Itkar
  */
 public class AdminGroupNotesPanel extends JPanel {
     private static JPanel mainPanel;

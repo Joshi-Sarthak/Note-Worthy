@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
- * @author Harsh Itkar
+ * @author Sarthak Joshi
  */
 public class SignUp extends javax.swing.JFrame {
     boolean isEmailValid;

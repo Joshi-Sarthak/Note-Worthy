@@ -18,6 +18,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 
+/**
+ *
+ * @author Sarthak Joshi
+ */
 public class UserGroupDAO {
 
     PreparedStatement pst;

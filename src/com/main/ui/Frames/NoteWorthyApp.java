@@ -11,7 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * @author haras
+ * @author Harsh Itkar
  */
 public class NoteWorthyApp extends JFrame {
     String currentUsername;

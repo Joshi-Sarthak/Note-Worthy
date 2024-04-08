@@ -1,5 +1,9 @@
 package com.main.model;
 
+/**
+ * @author Harsh Itkar
+ */
+
 public class GroupNote {
     public String getLast_edit_datetime() {
         return this.last_edit_datetime;
