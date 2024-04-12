@@ -1,13 +1,13 @@
 package com.main.ui.Panels;
 
+import com.main.DAO.GroupNotesDAO;
+import com.main.DAO.Notedao;
 import com.main.DAO.UserDAO;
 import com.main.model.User;
 
 import javax.swing.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.*;
+import java.awt.event.*;
 
 /**
  *
@@ -44,7 +44,6 @@ public class ProfilePanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
-
         jPanel = new javax.swing.JPanel();
         profileLabel = new javax.swing.JLabel();
         nameLabel = new javax.swing.JLabel();
@@ -59,6 +58,22 @@ public class ProfilePanel extends javax.swing.JPanel {
         editEmailIcon = new javax.swing.JLabel();
         nameErrorlabel = new javax.swing.JLabel();
         emailErrorLabel = new javax.swing.JLabel();
+
+        JButton deleteProfileButton = new JButton("Delete Profile");
+        deleteProfileButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                deleteProfileButtonActionPerformed(e);
+            }
+        });
+
+        // Create a panel to hold the buttons
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 0));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20));
+        buttonPanel.add(saveButton);
+        buttonPanel.add(deleteProfileButton); // Add the Delete Profile button to the panel
+        jPanel.add(buttonPanel, BorderLayout.SOUTH);
+
 
         setPreferredSize(new java.awt.Dimension(700, 600));
 
@@ -112,6 +127,8 @@ public class ProfilePanel extends javax.swing.JPanel {
         saveButton.setBackground(new java.awt.Color(0, 0, 0));
         saveButton.setForeground(new java.awt.Color(255, 255, 255));
         saveButton.setText("Save Changes");
+        deleteProfileButton.setBackground(new java.awt.Color(0, 0, 0));
+        deleteProfileButton.setForeground(new java.awt.Color(255, 255, 255));
         saveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveButtonActionPerformed(evt);
@@ -177,11 +194,11 @@ public class ProfilePanel extends javax.swing.JPanel {
         jPanelLayout.setHorizontalGroup(
                 jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanelLayout.createSequentialGroup()
-                                .addGap(44, 44, 44)
+                                .addGap(10, 10, 10)
                                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(emailErrorLabel)
                                         .addComponent(nameErrorlabel)
-                                        .addComponent(saveButton)
+                                        .addComponent(buttonPanel)
                                         .addComponent(usernameLabel)
                                         .addGroup(jPanelLayout.createSequentialGroup()
                                                 .addComponent(UsernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -198,7 +215,7 @@ public class ProfilePanel extends javax.swing.JPanel {
                                                 .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(18, 18, 18)
                                                 .addComponent(editEmailIcon)))
-                                .addContainerGap(278, Short.MAX_VALUE))
+                                .addContainerGap(380, 500))
         );
         jPanelLayout.setVerticalGroup(
                 jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,7 +245,7 @@ public class ProfilePanel extends javax.swing.JPanel {
                                         .addComponent(UsernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(editEmailIcon))
                                 .addGap(35, 35, 35)
-                                .addComponent(saveButton)
+                                .addComponent(buttonPanel)
                                 .addContainerGap(193, Short.MAX_VALUE))
         );
 
@@ -246,6 +263,38 @@ public class ProfilePanel extends javax.swing.JPanel {
         );
 
     }// </editor-fold>
+
+    private void deleteProfileButtonActionPerformed(ActionEvent e) {
+        int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete delete your profile?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+        if (option == JOptionPane.YES_OPTION) {
+            JPanel panel = new JPanel(new BorderLayout(5, 5));
+            JPasswordField passwordField = new JPasswordField();
+            JLabel passwordLabel = new JLabel("Enter your password:");
+            JLabel errorField = new JLabel();
+            errorField.setForeground(Color.RED);
+
+            panel.add(passwordLabel, BorderLayout.NORTH);
+            panel.add(passwordField, BorderLayout.CENTER);
+            panel.add(errorField, BorderLayout.SOUTH);
+
+            int result = JOptionPane.showConfirmDialog(this, panel, "Confirm Password", JOptionPane.OK_CANCEL_OPTION);
+            if (result == JOptionPane.OK_OPTION) {
+                String password = new String(passwordField.getPassword());
+                UserDAO userDAO = new UserDAO();
+                if (userDAO.auth(currentUsername, password)) {
+                    if(userDAO.deleteProfile(currentUsername)) {
+                        JOptionPane.showMessageDialog(this, "Account deleted successfully");
+                        SwingUtilities.getWindowAncestor(saveButton).dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Some Error occured! Could'nt delete account!");
+                    }
+                } else {
+                    errorField.setText("Incorrect password!");
+                }
+            }
+        }
+    }
+
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {
         if(nameTextField.getText().isEmpty()) {

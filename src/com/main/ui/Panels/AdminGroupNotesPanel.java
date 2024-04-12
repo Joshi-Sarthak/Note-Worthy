@@ -4,18 +4,19 @@
 
 package com.main.ui.Panels;
 
+import com.main.DAO.AdminGroupDAO;
 import com.main.DAO.GroupNotesDAO;
+import com.main.DAO.UserDAO;
+import com.main.DAO.UserGroupDAO;
 import com.main.ui.Frames.AddNote;
 import com.main.model.GroupNote;
+import com.main.ui.Frames.ChangeGroupNamePage;
 import com.main.util.SearchTextField;
 import com.main.util.CreateNoteCardPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -86,13 +87,123 @@ public class AdminGroupNotesPanel extends JPanel {
         } else {
             mainPanel.add(new JLabel("No notes created"));
         }
+        optionsLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                showPopupMenu(optionsLabel, e.getX(), e.getY());
+            }
+        });
+    }
+
+    private void showPopupMenu(Component component, int x, int y) {
+        JPopupMenu popupMenu = new JPopupMenu();
+        JMenuItem editGroupName = new JMenuItem("Edit Group Name");
+        JMenuItem showMembersItem = new JMenuItem("Show Members");
+        JMenuItem deleteGroupItem = new JMenuItem("Delete Group");
+        UserGroupDAO userGroupDAO = new UserGroupDAO();
+        editGroupName.addActionListener(e -> {
+            new ChangeGroupNamePage(groupId, currentUsername, parentPanel);
+        });
+        showMembersItem.addActionListener(e -> {
+            showMembersList(userGroupDAO.getGetGroupAdminList(currentUsername, groupId), userGroupDAO.getGroupMemberList(currentUsername, groupId));
+        });
+        deleteGroupItem.addActionListener(e -> {
+            int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to Delete this group?", "Confirmation", JOptionPane.YES_NO_OPTION);
+            if (option == JOptionPane.YES_OPTION) {
+                if(userGroupDAO.deleteGroup(groupId)) {
+                    parentPanel.removeAll();
+                    parentPanel.add(new GroupHomepagePanel(currentUsername, parentPanel).getThisPanel());
+                    parentPanel.repaint();
+                    parentPanel.revalidate();
+                }
+            }
+        });
+
+        popupMenu.add(editGroupName);
+        popupMenu.add(showMembersItem);
+        popupMenu.add(deleteGroupItem);
+        popupMenu.show(component, x, y);
+    }
+
+    private void showMembersList(DefaultListModel<String> adminListModel, DefaultListModel<String> memberListModel) {
+        JFrame frame = new JFrame("Group Members");
+        frame.setSize(600, 300);
+        frame.setLocationRelativeTo(null);
+        JPanel panel = new JPanel(new GridLayout(1, 2));
+
+        JPanel adminPanel = new JPanel(new BorderLayout());
+        JLabel adminLabel = new JLabel("Admin List", SwingConstants.CENTER);
+        adminPanel.add(adminLabel, BorderLayout.NORTH);
+
+        JList<String> adminList = new JList<>(adminListModel);
+        adminList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        JScrollPane adminScrollPane = new JScrollPane(adminList);
+        adminPanel.add(adminScrollPane, BorderLayout.CENTER);
+        panel.add(adminPanel);
+
+        JPanel memberPanel = new JPanel(new BorderLayout());
+        JLabel memberLabel = new JLabel("Member List", SwingConstants.CENTER);
+        memberPanel.add(memberLabel, BorderLayout.NORTH);
+
+        JList<String> memberList = new JList<>(memberListModel);
+        memberList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        memberList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1 && SwingUtilities.isRightMouseButton(e)) {
+                    int index = memberList.locationToIndex(e.getPoint());
+                    memberList.setSelectedIndex(index);
+                    JPopupMenu popupMenu = createPopupMenu(panel, memberListModel.getElementAt(index));
+                    popupMenu.show(memberList, e.getX(), e.getY());
+                }
+            }
+        });
+        JScrollPane memberScrollPane = new JScrollPane(memberList);
+        memberPanel.add(memberScrollPane, BorderLayout.CENTER);
+        panel.add(memberPanel);
+
+        frame.add(panel);
+        frame.setVisible(true);
+    }
+
+    private JPopupMenu createPopupMenu(JPanel parentPanel, String username) {
+        JPopupMenu popupMenu = new JPopupMenu();
+        JMenuItem makeAdminItem = new JMenuItem("Make Admin");
+        AdminGroupDAO adminGroupDAO = new AdminGroupDAO();
+        makeAdminItem.addActionListener(e -> {
+            int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to make this user an admin?", "Confirmation", JOptionPane.YES_NO_OPTION);
+            if (option == JOptionPane.YES_OPTION) {
+                if(adminGroupDAO.makeAdmin(username, groupId)) {
+                    UserGroupDAO userGroupDAO = new UserGroupDAO();
+
+                    SwingUtilities.getWindowAncestor(parentPanel).dispose();
+                    showMembersList(userGroupDAO.getGetGroupAdminList(currentUsername, groupId), userGroupDAO.getGroupMemberList(currentUsername, groupId));
+                }
+            }
+        });
+        JMenuItem removeItem = new JMenuItem("Remove");
+        removeItem.addActionListener(e -> {
+            int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove this user?", "Confirmation", JOptionPane.YES_NO_OPTION);
+            if (option == JOptionPane.YES_OPTION) {
+                if(adminGroupDAO.removeMember(username, groupId)) {
+                    UserGroupDAO userGroupDAO = new UserGroupDAO();
+                    SwingUtilities.getWindowAncestor(parentPanel).dispose();
+                    showMembersList(userGroupDAO.getGetGroupAdminList(currentUsername, groupId), userGroupDAO.getGroupMemberList(currentUsername, groupId));
+                }
+            }
+        });
+        popupMenu.add(makeAdminItem);
+        popupMenu.add(removeItem);
+        return popupMenu;
     }
 
     private void initComponents() {
         gridPanel = new JPanel();
         AddNoteLabel = new JLabel();
+        optionsLabel = new JLabel(new ImageIcon(getClass().getResource("/com/main/icons/options.png")));
 
         searchTextField = new SearchTextField();
+
         searchTextField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -128,6 +239,10 @@ public class AdminGroupNotesPanel extends JPanel {
         AddNoteLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(AddNoteLabel);
         AddNoteLabel.setBounds(540, 20, 105, 20);
+
+        add(optionsLabel);
+        optionsLabel.setForeground(Color.WHITE);
+        optionsLabel.setBounds(670, 20, 20, 20);
         AddNoteLabel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -216,5 +331,6 @@ public class AdminGroupNotesPanel extends JPanel {
     private JPanel gridPanel;
     private JTextField searchTextField;
     private JLabel AddNoteLabel;
+    JLabel optionsLabel;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

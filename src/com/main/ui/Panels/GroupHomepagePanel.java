@@ -52,7 +52,7 @@ public class GroupHomepagePanel extends JPanel {private static JPanel mainPanel;
                     public void mouseClicked(MouseEvent e) {
                         if ((new UserGroupDAO().getRole(currentUsername, n.getGroupId()).equals("member"))) {
                             parentPanel.removeAll();
-                            parentPanel.add(new MemberGroupNoteListPanel(currentUsername, n.getGroupId()));
+                            parentPanel.add(new MemberGroupNoteListPanel(parentPanel, currentUsername, n.getGroupId()));
                             parentPanel.repaint();
                             parentPanel.revalidate();
                         } else {
@@ -216,7 +216,7 @@ public class GroupHomepagePanel extends JPanel {private static JPanel mainPanel;
                     public void mouseClicked(MouseEvent e) {
                         if ((new UserGroupDAO().getRole(currentUsername, n.getGroupId()).equals("member"))) {
                             parentPanel.removeAll();
-                            parentPanel.add(new MemberGroupNoteListPanel(currentUsername, n.getGroupId()));
+                            parentPanel.add(new MemberGroupNoteListPanel(parentPanel, currentUsername, n.getGroupId()));
                             parentPanel.repaint();
                             parentPanel.revalidate();
                         } else {

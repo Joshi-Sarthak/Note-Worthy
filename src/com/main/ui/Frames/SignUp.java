@@ -86,7 +86,7 @@ public class SignUp extends javax.swing.JFrame {
             String email = emailField.getText();
             if(email.isEmpty()) {
                 emailErrorLabel.setText("Enter an Email");
-            } else if(email.contains("@")) {
+            } else if (email.matches("[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]+")) {
                 isEmailValid = true;
                 passwordField.grabFocus();
             } else {
@@ -94,9 +94,9 @@ public class SignUp extends javax.swing.JFrame {
             }
         } else {
             emailErrorLabel.setText("");
-
         }
     }
+
 
     private void signinLabelMouseMoved() {
         signinLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

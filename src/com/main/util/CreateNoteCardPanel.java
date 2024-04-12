@@ -7,6 +7,57 @@ import javax.swing.JPanel;
 /**
  * @author Onkar Jadhav
  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 public class CreateNoteCardPanel extends javax.swing.JPanel {
 
 

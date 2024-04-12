@@ -102,27 +102,6 @@ public class UserDAO {
         return false;
     }
 
-    public String getCurrentUsername(String email) {
-        try{
-            con = dataBaseConnector.connect();
-            pst = con.prepareStatement("SELECT * FROM user WHERE email = ?;");
-            pst.setString(1, email);
-            rs = pst.executeQuery();
-            if(rs.next()){
-                return rs.getString("username");
-            }
-        } catch(HeadlessException | SQLException ex){
-            System.out.println(ex);
-        }finally {
-            try {
-                if(con != null) con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
-
     public User getCurrentUser(String currentUsername) {
         String name = new String();
         String email = new String();
@@ -156,6 +135,26 @@ public class UserDAO {
         } catch(HeadlessException | SQLException ex){
             System.out.println(ex);
             return false;
+        }finally {
+            try {
+                if(con != null) con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
+    }
+
+    public boolean deleteProfile(String username) {
+        try{
+            con = dataBaseConnector.connect();
+            try {
+                con.prepareStatement("delete from `user` where username = '" + username + "';").executeUpdate();
+            } catch (SQLException e) {
+                return false;
+            }
+        } catch(HeadlessException ex){
+            System.out.println(ex);
         }finally {
             try {
                 if(con != null) con.close();

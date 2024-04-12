@@ -190,34 +190,31 @@ public class UserGroupDAO {
         return null;
     }
 
-    public Boolean deleteGroup(String groupId) {
-        try{
-            con = dataBaseConnector.connect();
-            pst = con.prepareStatement("delete from `group` where groupId = ?;");
-            pst.setString(1, groupId);
-            pst.executeUpdate();
-        } catch(HeadlessException | SQLException ex){
-            System.out.println(ex);
-            return false;
-        }finally {
-            try {
-                if(con != null) con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return true;
-    }
-
-    public DefaultListModel<String> getGetGroupAdminList(String groupId) {
+    public DefaultListModel<String> getGetGroupAdminList(String currentUsername, String groupId) {
         DefaultListModel<String> model = new DefaultListModel<>();
+        String username = new String();
         try{
             con = dataBaseConnector.connect();
+            pst = con.prepareStatement("select `username` from `user_group` where groupId = ? and role = 'creator';");
+            pst.setString(1, groupId);
+            rs = pst.executeQuery();
+            rs.next();
+            username = rs.getString("username");
+            if(!currentUsername.equals(username)) {
+                model.addElement(username);
+            } else {
+                model.addElement("You");
+            }
             pst = con.prepareStatement("select `username` from `user_group` where groupId = ? and role = 'admin';");
             pst.setString(1, groupId);
             rs = pst.executeQuery();
             while(rs.next()){
-                model.addElement(rs.getString("username"));
+                username = rs.getString("username");
+                if(!currentUsername.equals(username)) {
+                    model.addElement(username);
+                } else {
+                    model.addElement("You");
+                }
             }
         } catch(HeadlessException | SQLException ex){
             System.out.println(ex);
@@ -231,15 +228,21 @@ public class UserGroupDAO {
         return model;
     }
 
-    public DefaultListModel<String> getGroupMemberList(String groupId) {
+    public DefaultListModel<String> getGroupMemberList(String currentUsername, String groupId) {
         DefaultListModel<String> model = new DefaultListModel<>();
+        String username = new String();
         try{
             con = dataBaseConnector.connect();
             pst = con.prepareStatement("select `username` from `user_group` where groupId = ? and role = 'member';");
             pst.setString(1, groupId);
             rs = pst.executeQuery();
             while(rs.next()){
-                model.addElement(rs.getString("username"));
+                username = rs.getString("username");
+                if(!currentUsername.equals(username)) {
+                    model.addElement(username);
+                } else {
+                    model.addElement("You");
+                }
             }
         } catch(HeadlessException | SQLException ex){
             System.out.println(ex);
@@ -306,5 +309,54 @@ public class UserGroupDAO {
             }
         }
         return role;
+    }
+
+    public boolean deleteGroup(String groupId) {
+        try{
+            con = dataBaseConnector.connect();
+            try {
+                pst = con.prepareStatement("delete from `group` where groupId = ?;");
+                pst.setString(1, groupId);
+                pst.executeUpdate();
+            } catch (SQLException e) {
+                System.out.println(e);
+                return false;
+            }
+        } catch(HeadlessException ex){
+            System.out.println(ex);
+            return false;
+        }finally {
+            try {
+                if(con != null) con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
+    }
+
+    public Boolean LeaveGroup(String currentUsername, String groupId) {
+        try{
+            con = dataBaseConnector.connect();
+            try {
+                pst = con.prepareStatement("delete from `user_group` where username = ? and groupId = ?;");
+                pst.setString(1, currentUsername);
+                pst.setString(2, groupId);
+                pst.executeUpdate();
+            } catch (SQLException e) {
+                System.out.println(e);
+                return false;
+            }
+        } catch(HeadlessException ex){
+            System.out.println(ex);
+            return false;
+        }finally {
+            try {
+                if(con != null) con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
     }
 }

@@ -307,20 +307,24 @@ public class AddNote extends javax.swing.JFrame {
     }
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        if(noteId > 0) {
-            parentPanel.removeAll();
-            if(groupId == null) {
-                new Notedao().deleteNote(noteId);
-                parentPanel.add(new PersonalNotesHomepagePanel(currentUsername, parentPanel));
-            } else {
-                System.out.println(new GroupNotesDAO().deleteGroupNote(noteId));
-                parentPanel.add(new AdminGroupNotesPanel(currentUsername, groupId, parentPanel));
+        int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this note?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+        if (option == JOptionPane.YES_OPTION) {
+            if (noteId > 0) {
+                parentPanel.removeAll();
+                if (groupId == null) {
+                    new Notedao().deleteNote(noteId);
+                    parentPanel.add(new PersonalNotesHomepagePanel(currentUsername, parentPanel));
+                } else {
+                    System.out.println(new GroupNotesDAO().deleteGroupNote(noteId));
+                    parentPanel.add(new AdminGroupNotesPanel(currentUsername, groupId, parentPanel));
+                }
+                parentPanel.repaint();
+                parentPanel.revalidate();
             }
-            parentPanel.repaint();
-            parentPanel.revalidate();
+            this.dispose();
         }
-        this.dispose();
     }
+
 
     private Boolean areFieldsValid() {
         if(titleTextArea.getText().trim().isEmpty()) {
