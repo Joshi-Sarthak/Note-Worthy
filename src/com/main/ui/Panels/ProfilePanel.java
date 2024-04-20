@@ -71,7 +71,7 @@ public class ProfilePanel extends javax.swing.JPanel {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 0));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20));
         buttonPanel.add(saveButton);
-        buttonPanel.add(deleteProfileButton); // Add the Delete Profile button to the panel
+        buttonPanel.add(deleteProfileButton);
         jPanel.add(buttonPanel, BorderLayout.SOUTH);
 
 

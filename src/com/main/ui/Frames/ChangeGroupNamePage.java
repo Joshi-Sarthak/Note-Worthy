@@ -25,12 +25,13 @@ public class ChangeGroupNamePage extends JFrame {
     String currentUsername;
     JPanel parentPanel;
     String groupId;
-    public ChangeGroupNamePage(String _groupId, String _currentUsername, JPanel _parentPanel) {
+    public ChangeGroupNamePage(String _groupName, String _groupId, String _currentUsername, JPanel _parentPanel) {
         parentPanel = _parentPanel;
         groupId = _groupId;
         currentUsername = _currentUsername;
         initComponents();
         setTitle("Change Group Name");
+        inputField.setText(_groupName);
         setResizable(false);
         setVisible(true);
     }

@@ -1,7 +1,3 @@
-/*
- * Created by JFormDesigner on Fri Apr 05 21:10:29 IST 2024
- */
-
 package com.main.ui.Panels;
 
 import com.main.DAO.AdminGroupDAO;
@@ -74,7 +70,7 @@ public class AdminGroupNotesPanel extends JPanel {
 
                     }
                 };
-                JPanel cardPanel = new CreateNoteCardPanel(n.getTitle(), n.getCreated_by(), n.getCreation_datetime(), n.getLast_edit_datetime(), currentUsername, myListener).getThisPanel();
+                JPanel cardPanel = new CreateNoteCardPanel(n.getTitle(), n.getCreated_by(), n.getCreation_datetime(), n.getLast_edit_datetime(), n.getLast_edited_by(), currentUsername, myListener).getThisPanel();
                 mainPanel.add(cardPanel);
             });
             if(groupNotesArrayList.size() != 4) {
@@ -102,7 +98,7 @@ public class AdminGroupNotesPanel extends JPanel {
         JMenuItem deleteGroupItem = new JMenuItem("Delete Group");
         UserGroupDAO userGroupDAO = new UserGroupDAO();
         editGroupName.addActionListener(e -> {
-            new ChangeGroupNamePage(groupId, currentUsername, parentPanel);
+            new ChangeGroupNamePage(new UserGroupDAO().getGroupNameById(groupId), groupId, currentUsername, parentPanel);
         });
         showMembersItem.addActionListener(e -> {
             showMembersList(userGroupDAO.getGetGroupAdminList(currentUsername, groupId), userGroupDAO.getGroupMemberList(currentUsername, groupId));
@@ -311,7 +307,7 @@ public class AdminGroupNotesPanel extends JPanel {
 
                     }
                 };
-                JPanel cardPanel = new CreateNoteCardPanel(n.getTitle(), n.getCreated_by(), n.getCreation_datetime(), n.getLast_edit_datetime(), currentUsername, myListener);
+                JPanel cardPanel = new CreateNoteCardPanel(n.getTitle(), n.getCreated_by(), n.getCreation_datetime(), n.getLast_edit_datetime(), n.getLast_edited_by(), currentUsername, myListener);
                 mainPanel.add(cardPanel);
                 if(groupNotesArrayList.size() != 4) {
                     scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);

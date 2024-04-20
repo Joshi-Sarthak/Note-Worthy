@@ -122,7 +122,7 @@ public class MemberGroupNoteListPanel extends JPanel {
                     @Override
                     public void mouseExited(MouseEvent e) {}
                 };
-                JPanel cardPanel = new CreateNoteCardPanel(n.getTitle(), n.getCreated_by(), n.getCreation_datetime(), n.getLast_edit_datetime(), currentUsername, myListener);
+                JPanel cardPanel = new CreateNoteCardPanel(n.getTitle(), n.getCreated_by(), n.getCreation_datetime(), n.getLast_edit_datetime(), n.getLast_edited_by(), currentUsername, myListener);
                 mainPanel.add(cardPanel);
             });
             if (groupNotesArrayList.size() != 4) {
@@ -239,7 +239,7 @@ public class MemberGroupNoteListPanel extends JPanel {
 
                     }
                 };
-                JPanel cardPanel = new CreateNoteCardPanel(n.getTitle(), n.getCreated_by(), n.getCreation_datetime(), n.getLast_edit_datetime(), currentUsername, myListener);
+                JPanel cardPanel = new CreateNoteCardPanel(n.getTitle(), n.getCreated_by(), n.getCreation_datetime(), n.getLast_edit_datetime(), n.getLast_edited_by(), currentUsername, myListener);
                 mainPanel.add(cardPanel);
             }
         });

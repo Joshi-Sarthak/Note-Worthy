@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="NoteWorthy:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/NoteWorthy_jar</output-path>
+    <root id="archive" name="NoteWorthy.jar">
+      <element id="module-output" name="NoteWorthy" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/mysql-connector-j-8.3.0/mysql-connector-j-8.3.0/mysql-connector-j-8.3.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/jar_files/jgoodies-forms-1.8.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/jar_files/jgoodies-common-1.8.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

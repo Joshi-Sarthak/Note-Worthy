@@ -8,7 +8,6 @@ import java.sql.SQLException;
 
 public class AdminGroupDAO {
     PreparedStatement pst;
-    ResultSet rs;
     Connection con;
     DataBaseConnector dataBaseConnector = new DataBaseConnector();
 

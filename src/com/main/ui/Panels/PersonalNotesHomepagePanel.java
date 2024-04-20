@@ -68,7 +68,7 @@ public class PersonalNotesHomepagePanel extends JPanel {
 
                     }
                 };
-                JPanel cardPanel = new CreateNoteCardPanel(n.getTitle(),null, n.getCreationDateTime(), n.getLastEditDateTime(), currentUsername, myListener).getThisPanel();
+                JPanel cardPanel = new CreateNoteCardPanel(n.getTitle(),null, n.getCreationDateTime(), n.getLastEditDateTime(), null, currentUsername, myListener).getThisPanel();
                 mainPanel.add(cardPanel);
             });
             if(personalNotesList.size() != 4) {
@@ -191,7 +191,7 @@ public class PersonalNotesHomepagePanel extends JPanel {
 
                     }
                 };
-                JPanel cardPanel = new CreateNoteCardPanel(n.getTitle(),null, n.getCreationDateTime(), n.getLastEditDateTime(), currentUsername, myListener).getThisPanel();
+                JPanel cardPanel = new CreateNoteCardPanel(n.getTitle(),null, n.getCreationDateTime(), n.getLastEditDateTime(), null, currentUsername, myListener).getThisPanel();
                 mainPanel.add(cardPanel);
             }
         });

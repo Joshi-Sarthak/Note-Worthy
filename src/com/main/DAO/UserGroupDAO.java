@@ -213,7 +213,12 @@ public class UserGroupDAO {
                 if(!currentUsername.equals(username)) {
                     model.addElement(username);
                 } else {
-                    model.addElement("You");
+                    DefaultListModel<String> newModel = new DefaultListModel<>();
+                    newModel.addElement("You");
+                    for(int i = 0; i < model.size(); i++) {
+                        newModel.addElement(model.getElementAt(i));
+                    }
+                    model = newModel;
                 }
             }
         } catch(HeadlessException | SQLException ex){
@@ -241,7 +246,12 @@ public class UserGroupDAO {
                 if(!currentUsername.equals(username)) {
                     model.addElement(username);
                 } else {
-                    model.addElement("You");
+                    DefaultListModel<String> newModel = new DefaultListModel<>();
+                    newModel.addElement("You");
+                    for(int i = 0; i < model.size(); i++) {
+                        newModel.addElement(model.getElementAt(i));
+                    }
+                    model = newModel;
                 }
             }
         } catch(HeadlessException | SQLException ex){
@@ -358,5 +368,26 @@ public class UserGroupDAO {
             }
         }
         return true;
+    }
+
+    public String getGroupNameById(String groupId) {
+        String groupName = new String();
+        try{
+            con = dataBaseConnector.connect();
+            pst = con.prepareStatement("select groupName from `group` where groupId = ?;");
+            pst.setString(1, groupId);
+            rs = pst.executeQuery();
+            rs.next();
+            groupName = rs.getString("groupName");
+        } catch(HeadlessException | SQLException ex){
+            System.out.println(ex);
+        }finally {
+            try {
+                if(con != null) con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return groupName;
     }
 }

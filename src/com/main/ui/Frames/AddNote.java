@@ -2,6 +2,7 @@ package com.main.ui.Frames;
 
 import com.main.DAO.GroupNotesDAO;
 import com.main.DAO.Notedao;
+import com.main.DAO.UserGroupDAO;
 import com.main.ui.Panels.AdminGroupNotesPanel;
 import com.main.ui.Panels.PersonalNotesHomepagePanel;
 

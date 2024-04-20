@@ -83,7 +83,7 @@ public class GroupHomepagePanel extends JPanel {private static JPanel mainPanel;
 
                     }
                 };
-                JPanel cardPanel = new CreateGroupCardPanel(n.getGroupName(), n.getCreator(), n.getDateJoined(), n.getLastPostDate(), currentUsername, myListener, n.getGroupId()).getThisPanel();
+                JPanel cardPanel = new CreateGroupCardPanel(parentPanel, n.getGroupName(), n.getCreator(), n.getDateJoined(), n.getLastPostDate(), currentUsername, myListener, n.getGroupId()).getThisPanel();
                 mainPanel.add(cardPanel);
             });
             if(groupArrayList.size() != 4) {
@@ -247,7 +247,7 @@ public class GroupHomepagePanel extends JPanel {private static JPanel mainPanel;
 
                     }
                 };
-                JPanel cardPanel = new CreateGroupCardPanel(n.getGroupName(), n.getCreator(), n.getDateJoined(), n.getLastPostDate(), currentUsername, myListener, n.getGroupId()).getThisPanel();
+                JPanel cardPanel = new CreateGroupCardPanel(parentPanel, n.getGroupName(), n.getCreator(), n.getDateJoined(), n.getLastPostDate(), currentUsername, myListener, n.getGroupId()).getThisPanel();
                 mainPanel.add(cardPanel);
             }
         });

@@ -2,66 +2,16 @@ package com.main.util;
 
 import java.awt.*;
 import java.awt.event.MouseListener;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /**
  * @author Onkar Jadhav
  */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 public class CreateNoteCardPanel extends javax.swing.JPanel {
 
 
-    public CreateNoteCardPanel(String title, String creator, String creationDatetime, String lastPostDate, String currentUsername, MouseListener myListener)
+    public CreateNoteCardPanel(String title, String creator, String creationDatetime, String lastPostDate,String lastEditedBy,  String currentUsername, MouseListener myListener)
     {
         initComponents();
         titleLabel.setFocusable(false);
@@ -78,6 +28,9 @@ public class CreateNoteCardPanel extends javax.swing.JPanel {
         creationDatetimeLabel.setText("Created at: " + creationDatetime);
         lastEditLabel.setText("Last Edit: " + lastPostDate);
         lastEditPanel.add(lastEditLabel, BorderLayout.LINE_END);
+        if(lastEditedBy != null) {
+            lastEditedByLabel.setText("Last Edited by: " + lastEditedBy);
+        }
         titlePanel.add(titleLabel);
         titlePanel.add(lastEditPanel);
         infoPanel.add(creationDatetimeLabel);
@@ -103,6 +56,7 @@ public class CreateNoteCardPanel extends javax.swing.JPanel {
         creationLabel = new javax.swing.JLabel();
         creationDatetimeLabel = new javax.swing.JLabel();
         titleLabel = new javax.swing.JTextArea();
+        lastEditedByLabel = new JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
@@ -138,21 +92,27 @@ public class CreateNoteCardPanel extends javax.swing.JPanel {
         lastEditLabel.setFont(new java.awt.Font("Yu Gothic Light", 0, 12)); // NOI18N
         lastEditLabel.setForeground(new java.awt.Color(102, 102, 102));
 
+        lastEditedByLabel.setFont(new java.awt.Font("Yu Gothic Light", 0, 12)); // NOI18N
+        lastEditedByLabel.setForeground(new java.awt.Color(102, 102, 102));
+
         javax.swing.GroupLayout lastEditPanelLayout = new javax.swing.GroupLayout(lastEditPanel);
         lastEditPanel.setLayout(lastEditPanelLayout);
         lastEditPanelLayout.setHorizontalGroup(
                 lastEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, lastEditPanelLayout.createSequentialGroup()
+                        .addGroup(lastEditPanelLayout.createSequentialGroup()
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lastEditLabel)
-                                .addGap(16, 16, 16))
+                                .addGroup(lastEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lastEditLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(lastEditedByLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(19, 19, 19))
         );
         lastEditPanelLayout.setVerticalGroup(
                 lastEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(lastEditPanelLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(lastEditLabel)
-                                .addContainerGap(23, Short.MAX_VALUE))
+                                .addComponent(lastEditLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lastEditedByLabel)
+                                .addContainerGap())
         );
 
         creationLabel.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 12)); // NOI18N
@@ -213,5 +173,6 @@ public class CreateNoteCardPanel extends javax.swing.JPanel {
     private javax.swing.JPanel lastEditPanel;
     private javax.swing.JTextArea titleLabel;
     private javax.swing.JPanel titlePanel;
+    private javax.swing.JLabel lastEditedByLabel;
     // End of variables declaration
 }
